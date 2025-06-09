@@ -1,0 +1,35 @@
+### Test the /login API
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "username": "testuser",
+    "password": "testpassword"
+}
+
+###
+
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+    "username": "testuser",
+    "password": "testpassword",
+    "firstname": "Test",
+    "lastname": "User"
+}
+
+###
+
+GET http://localhost:3000/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ0ZXN0dXNlciIsImlhdCI6MTc0OTE1NjM2MiwiZXhwIjoxNzQ5MTU3MjYyfQ.pGIWh_sV-p7aCF-_vJHWOuDJ762AzdoIss-awH6IGz0
+
+###
+
+POST http://localhost:3000/refresh
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ0ZXN0dXNlciIsImlhdCI6MTc0OTE1NjM2Mn0.5bhaoo26FGRKv9yis5RXwDV1M00vvG720TIP-upJc1w"
+}

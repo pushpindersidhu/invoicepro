@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+    server:
+        build: ./server
+        ports:
+            - "3000:3000"
+        volumes:
+            - ./server:/app
+        environment:
+            DB_NAME: invoicepro
+            DB_USER: postgres
+            DB_PASSWORD: passwd
+            DB_PORT: 5432
+            DB_HOST: db
+            PORT: 3000
+            JWT_SECRET: ada0953bec35a3e7803b6d134aaf5b5255ce96c4c94fc4de5835b6b8dfab971a7bd03c464990f533d6f50194baa2d2b207455129a50ea1b38e73136d3a65cf2a3834d28378e60b75feeee264113581562306f06bbd8b8bfab6bfc39236e9fbaba718130a157d1cbfc587256ed1edb7550d5a4fd58a06e59864f4f3aaf1715c77247854d14f05a4ac1b4091ae2dd0036d7bfeafe3b09f2f18744d8d7d6189adb760c61782ba755fc9845e968edeef631d0bdd2f19043b7e8302d91ff99dc037a2de35a7fe5c0a9f5e7fff0dccd3fe05972d6012841deab93f2e0e5576a179480556dcc12e660ab23f35008fb78b1af2b72e7e592286c3a7c6d3dbd0ac457853ed
+            JWT_REFRESH_TOKEN_SECRET: 8f449c56f45bec90c68259ab563a0b223d9cdedcc8b112402cfd6a9df76cd97543f998838fd25135344e3df2d68de535dcf479f528ec3c3dbb705d692564a5a5f23a1338c2b3f648ffe01d3e1b05a5ea2a2fc025e2321549948454323abab2267867141c255e7c75a7a180b5db58d9ed844fb51e04e92dcd83602b6e9339e056cb9685b5b04ada4a88650869ca06c4ad36d784d9a34ddecd2cf89ba2da23d76c83c67260b4696fa9f5be2ffc078fce252fd0f5d35b7b1d5efabf901efe5b04a22342ef6a2d73010c1af58f07f7728edd3f1ae4665736f12b68a35713e11eb3888c57edbb7e4908c27eebe5c234d85f93573c9db85973be8698b0d2b7bb10b294
+        depends_on:
+            - db
+
+    client:
+        build: ./client
+        ports:
+            - "5173:5173"
+        environment:
+            NODE_ENV: development
+        volumes:
+            - ./client:/app
+            - /app/node_modules
+        
+    db:
+        image: postgres:14
+        restart: always
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_DB: invoicepro
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: passwd
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+
+volumes:
+    pgdata:
+        driver: local
